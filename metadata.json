@@ -1,0 +1,6 @@
+{
+  "name": "Riolabz Redesign",
+  "description": "A high-end, responsive redesign of the Riolabz IT and technology brand, featuring a Neo-Digital Bento-grid aesthetic, interactive multi-page layouts, a project planner, and smooth motion effects.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth bg-[#05070a] text-[#f8fafc]">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riolabz Redesign — Neo-Digital Technology Collective</title>
+    <!-- Tailwind v3.4.15 CDN for robust, standalone loading -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Plus Jakarta Sans', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style type="text/css">
+      .glass {
+        background: rgba(15, 23, 42, 0.65);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .glass-light {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .text-gradient {
+        background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      @keyframes marquee {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-50%); }
+      }
+      .animate-marquee {
+        animation: marquee 25s linear infinite;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col justify-between selection:bg-sky-500/30 selection:text-white overflow-x-hidden font-sans">
+    
+    <!-- Background glows -->
+    <div class="absolute top-20 left-[20%] w-[500px] h-[500px] bg-sky-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute top-[30%] right-[10%] w-[450px] h-[450px] bg-purple-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="fixed top-0 left-0 w-full z-50 px-4 py-4 md:px-8">
+      <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 rounded-full glass bg-opacity-70 shadow-lg backdrop-blur-xl">
+        <button onclick="navigate('home')" class="flex items-center gap-2 group cursor-pointer focus:outline-none">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-sky-400 to-purple-500 p-[1px] flex items-center justify-center">
+            <div class="w-full h-full rounded-full bg-[#05070a] flex items-center justify-center font-display font-extrabold text-sm tracking-wider text-white">
+              RΩ
+            </div>
+          </div>
+          <span class="font-display font-extrabold tracking-tight text-lg text-white group-hover:text-sky-400 transition-colors">
+            RIOLABZ
+          </span>
+        </button>
+
+        <nav class="hidden md:flex items-center gap-1">
+          <button id="nav-home" onclick="navigate('home')" class="px-4 py-2 rounded-full font-sans text-sm font-medium transition-all text-white bg-white/10 border border-white/5">Home</button>
+          <button id="nav-services" onclick="navigate('services')" class="px-4 py-2 rounded-full font-sans text-sm font-medium transition-all text-slate-400 hover:text-white">Services</button>
+          <button id="nav-about" onclick="navigate('about')" class="px-4 py-2 rounded-full font-sans text-sm font-medium transition-all text-slate-400 hover:text-white">About Us</button>
+          <button id="nav-planner" onclick="navigate('planner')" class="px-4 py-2 rounded-full font-sans text-sm font-medium transition-all text-slate-400 hover:text-white">Planner</button>
+        </nav>
+
+        <button onclick="navigate('planner')" class="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-sky-400 to-purple-500 text-white font-sans font-semibold text-sm hover:opacity-90 active:scale-95 transition-all shadow-md group cursor-pointer">
+          Let's Talk
+          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- MOBILE FLOATING NAVIGATION DOCK -->
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[340px] px-4 md:hidden">
+      <div class="flex items-center justify-around py-3 rounded-2xl glass shadow-2xl backdrop-blur-2xl">
+        <button id="mob-home" onclick="navigate('home')" class="flex flex-col items-center gap-1 text-sky-400 scale-105 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+          <span class="text-[10px] font-semibold">Home</span>
+        </button>
+        <button id="mob-services" onclick="navigate('services')" class="flex flex-col items-center gap-1 text-slate-400 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+          <span class="text-[10px] font-semibold">Services</span>
+        </button>
+        <button id="mob-about" onclick="navigate('about')" class="flex flex-col items-center gap-1 text-slate-400 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+          <span class="text-[10px] font-semibold">About</span>
+        </button>
+        <button id="mob-planner" onclick="navigate('planner')" class="flex flex-col items-center gap-1 text-slate-400 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+          <span class="text-[10px] font-semibold">Planner</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN PAGE SHELL -->
+    <main class="flex-1 w-full relative z-10">
+
+      <!-- PAGE: HOME -->
+      <div id="page-home" class="transition-all duration-300">
+        <!-- Hero Section -->
+        <section class="pt-28 md:pt-40 pb-12 max-w-7xl mx-auto px-4 md:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-6">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-400"></span>
+                </span>
+                <span class="font-mono text-[10px] text-white font-bold uppercase tracking-widest">
+                  Neo-Digital Concept V2
+                </span>
+              </div>
+              <h1 class="font-display font-extrabold text-4xl sm:text-5xl md:text-7xl text-white tracking-tight leading-[1.05] max-w-2xl">
+                We Build Digital Products That <span class="text-gradient">Define Categories.</span>
+              </h1>
+              <p class="font-sans text-slate-400 text-base sm:text-lg max-w-xl leading-relaxed">
+                A full-stack technology and design collective specialized in high-performance Web and Mobile ecosystems. We engineer products with uncompromising speed and visual craft.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                <button onclick="navigate('planner')" class="px-8 py-3.5 rounded-full bg-gradient-to-r from-sky-400 to-purple-500 text-white font-sans font-bold text-sm hover:opacity-95 shadow-lg shadow-sky-400/15 flex items-center justify-center gap-2 group cursor-pointer">
+                  Start Your Project
+                  <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+                <button onclick="navigate('services')" class="px-8 py-3.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-white font-sans font-bold text-sm transition-colors">
+                  Our Method
+                </button>
+              </div>
+            </div>
+
+            <!-- Rotating Orbital Network Visualizer -->
+            <div class="lg:col-span-5 relative">
+              <div class="absolute inset-0 bg-gradient-to-tr from-sky-400/10 to-purple-500/10 rounded-3xl filter blur-xl opacity-50"></div>
+              <div class="relative w-full aspect-square max-w-[450px] mx-auto">
+                <div class="w-full h-full rounded-3xl glass p-6 flex flex-col justify-between relative overflow-hidden group shadow-2xl border-white/10">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                      <span class="font-mono text-[10px] text-emerald-400 tracking-wider uppercase font-semibold">Core Active</span>
+                    </div>
+                    <div class="glass-light px-2.5 py-1 rounded-full flex items-center gap-1">
+                      <span class="font-mono text-[10px] text-slate-400">Uptime: <span class="text-white font-medium" id="uptime-val">99.9882%</span></span>
+                    </div>
+                  </div>
+
+                  <div class="flex-1 flex items-center justify-center relative my-4">
+                    <div class="absolute w-24 h-24 bg-sky-400/10 rounded-full blur-xl"></div>
+                    <div class="font-display font-black text-2xl tracking-widest text-gradient animate-pulse text-center">
+                      CORE OS<br><span class="text-[10px] font-mono tracking-normal text-slate-400 block mt-1">SCALABLE V1.4</span>
+                    </div>
+                    <!-- Rotating system simulation -->
+                    <div class="absolute w-[240px] h-[240px] border border-dashed border-white/10 rounded-full animate-[spin_30s_linear_infinite]">
+                      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-slate-900 border border-sky-400 flex items-center justify-center text-sky-400 text-[10px] font-mono">Re</div>
+                      <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-slate-900 border border-purple-500 flex items-center justify-center text-purple-400 text-[10px] font-mono">Fl</div>
+                      <div class="absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-slate-900 border-orange-500 border flex items-center justify-center text-orange-400 text-[8px] font-mono">AW</div>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-3 gap-3 border-t border-white/5 pt-4 text-center">
+                    <div>
+                      <p class="font-mono text-[9px] text-slate-400 uppercase">Engine</p>
+                      <p class="font-display font-semibold text-xs text-white">Next-Gen</p>
+                    </div>
+                    <div class="border-x border-white/5">
+                      <p class="font-mono text-[9px] text-slate-400 uppercase">Deploy</p>
+                      <p class="font-display font-semibold text-xs text-sky-400">Edge VPS</p>
+                    </div>
+                    <div>
+                      <p class="font-mono text-[9px] text-slate-400 uppercase">Ping</p>
+                      <p class="font-display font-semibold text-xs text-emerald-400">12ms</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Monochromatic Partners Scrolling Bar -->
+        <section class="border-y border-white/5 bg-[#030507] py-6 overflow-hidden relative">
+          <div class="flex whitespace-nowrap gap-16 max-w-7xl mx-auto px-4 overflow-hidden relative">
+            <div class="flex animate-marquee shrink-0 items-center gap-16 md:gap-24">
+              <span class="font-display font-bold text-sm tracking-widest text-slate-500 uppercase">Google Cloud</span>
+              <span class="font-display font-bold text-sm tracking-widest text-slate-500 uppercase">Amazon Web Services</span>
+              <span class="font-display font-bold text-sm tracking-widest text-slate-500 uppercase">Vercel Platform</span>
+              <span class="font-display font-bold text-sm tracking-widest text-slate-500 uppercase">Stripe Systems</span>
+              <span class="font-display font-bold text-sm tracking-widest text-slate-500 uppercase">Figma Space</span>
+            </div>
+            <div class="flex animate-marquee shrink-0 items-center gap-16 md:gap-24">
+              <span class="font-display font-bold text-sm tracking-widest text-slate-500 uppercase">Google Cloud</span>
+              <span class="font-display font-bold text-sm tracking-widest text-slate-500 uppercase">Amazon Web Services</span>
+              <span class="font-display font-bold text-sm tracking-widest text-slate-500 uppercase">Vercel Platform</span>
+              <span class="font-display font-bold text-sm tracking-widest text-slate-500 uppercase">Stripe Systems</span>
+              <span class="font-display font-bold text-sm tracking-widest text-slate-500 uppercase">Figma Space</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bento Grid Section -->
+        <section class="py-16">
+          <div class="max-w-2xl mx-auto text-center px-4 mb-12">
+            <span class="font-mono text-xs text-sky-400 font-bold tracking-widest uppercase mb-2 block">Capabilities</span>
+            <h2 class="font-display font-extrabold text-3xl md:text-5xl text-white tracking-tight">Engineering Bento Suite</h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 max-w-7xl mx-auto px-4 md:px-8">
+            <!-- Web Dev -->
+            <div class="md:col-span-7 rounded-3xl glass p-6 flex flex-col justify-between border-white/10 hover:-translate-y-1 transition-transform group">
+              <div>
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="font-mono text-xs text-sky-400 font-bold uppercase tracking-wider">Web Architecture</span>
+                </div>
+                <h3 class="font-display font-extrabold text-2xl text-white mb-2">Scalable Enterprise Web Services</h3>
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">We build ultra-fast, search-engine optimized web architectures using clean Next.js and secure APIs.</p>
+              </div>
+              <div class="bg-black/60 rounded-2xl border border-white/10 p-4 font-mono text-xs text-sky-400 min-h-[120px] flex flex-col justify-between">
+                <span class="text-[10px] text-slate-500 border-b border-white/5 pb-2">app.config.ts</span>
+                <span class="text-slate-300 pt-2 block" id="typing-code-box">const App = { scale: 'global', seoReady: true };</span>
+              </div>
+            </div>
+
+            <!-- UI/UX Interactive -->
+            <div class="md:col-span-5 rounded-3xl glass p-6 flex flex-col justify-between border-white/10 hover:-translate-y-1 transition-transform">
+              <div>
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="font-mono text-xs text-purple-400 font-bold uppercase tracking-wider">Design Token Lab</span>
+                </div>
+                <h3 class="font-display font-extrabold text-2xl text-white mb-2">Dynamic Theme Tokens</h3>
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">Bespoke spatial design systems. Toggle the interactive theme slider below to modify tokens live.</p>
+              </div>
+              <div class="glass-light p-4 rounded-xl space-y-3">
+                <div class="flex justify-between text-xs text-slate-400">
+                  <span>Interactive Hue Selector</span>
+                  <span id="slider-val" class="font-bold text-white">200°</span>
+                </div>
+                <input id="hue-slider" type="range" min="0" max="360" value="200" oninput="updateThemeHue(this.value)" class="w-full accent-purple-500 cursor-pointer">
+                <div class="flex gap-2">
+                  <div id="token-preview" class="flex-1 h-8 rounded-lg flex items-center justify-center text-[9px] font-mono text-white font-bold" style="background-color: hsl(200, 80%, 45%)">Core Token</div>
+                  <div id="token-accent" class="flex-1 h-8 rounded-lg flex items-center justify-center text-[9px] font-mono text-white font-bold" style="background-color: hsl(200, 90%, 65%)">Accent Token</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Case Studies Portfolio -->
+        <section class="max-w-7xl mx-auto px-4 md:px-8 py-16">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div>
+              <span class="font-mono text-xs text-sky-400 font-bold tracking-widest uppercase mb-2 block">Case studies</span>
+              <h2 class="font-display font-extrabold text-3xl md:text-5xl text-white tracking-tight">Featured Portfolio</h2>
+            </div>
+            <div class="flex flex-wrap gap-2 p-1 bg-white/5 rounded-full border border-white/5">
+              <button onclick="filterPortfolio('all')" id="filt-all" class="px-4 py-1.5 rounded-full text-xs font-semibold text-black bg-white transition-all">All</button>
+              <button onclick="filterPortfolio('Fintech')" id="filt-Fintech" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white transition-all">Fintech</button>
+              <button onclick="filterPortfolio('AI')" id="filt-AI" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white transition-all">AI</button>
+              <button onclick="filterPortfolio('SaaS')" id="filt-SaaS" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white transition-all">SaaS</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+            <!-- Project Card 1 -->
+            <div class="rounded-3xl border border-sky-500/20 bg-slate-950/40 p-5 flex flex-col justify-between hover:-translate-y-1.5 transition-transform" data-category="Fintech">
+              <div>
+                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase text-slate-300">Fintech</span>
+                <div class="aspect-[4/3] rounded-2xl bg-black/60 border border-white/5 p-4 my-4 flex flex-col justify-end text-center relative overflow-hidden">
+                  <span class="text-[10px] font-mono text-sky-400">Premium slate charts & exchange flow visualization</span>
+                </div>
+                <h3 class="font-display font-extrabold text-xl text-white">Chronos DeFi Protocol</h3>
+              </div>
+              <div class="flex gap-2 mt-4 pt-4 border-t border-white/5 text-[9px] font-mono text-slate-400">
+                <span>React</span><span>Web3.js</span><span>Solidity</span>
+              </div>
+            </div>
+
+            <!-- Project Card 2 -->
+            <div class="rounded-3xl border border-purple-500/20 bg-slate-950/40 p-5 flex flex-col justify-between hover:-translate-y-1.5 transition-transform" data-category="AI">
+              <div>
+                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase text-slate-300">AI</span>
+                <div class="aspect-[4/3] rounded-2xl bg-black/60 border border-white/5 p-4 my-4 flex flex-col justify-end text-center relative overflow-hidden">
+                  <span class="text-[10px] font-mono text-purple-400">Interactive workspace modeling & machine loops</span>
+                </div>
+                <h3 class="font-display font-extrabold text-xl text-white">OmniAI Workflow Suite</h3>
+              </div>
+              <div class="flex gap-2 mt-4 pt-4 border-t border-white/5 text-[9px] font-mono text-slate-400">
+                <span>Next.js</span><span>PyTorch</span><span>Tailwind</span>
+              </div>
+            </div>
+
+            <!-- Project Card 3 -->
+            <div class="rounded-3xl border border-emerald-500/20 bg-slate-950/40 p-5 flex flex-col justify-between hover:-translate-y-1.5 transition-transform" data-category="SaaS">
+              <div>
+                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase text-slate-300">SaaS</span>
+                <div class="aspect-[4/3] rounded-2xl bg-black/60 border border-white/5 p-4 my-4 flex flex-col justify-end text-center relative overflow-hidden">
+                  <span class="text-[10px] font-mono text-emerald-400">Minimal user dashboards with automated heatmaps</span>
+                </div>
+                <h3 class="font-display font-extrabold text-xl text-white">Apex SaaS Analytics</h3>
+              </div>
+              <div class="flex gap-2 mt-4 pt-4 border-t border-white/5 text-[9px] font-mono text-slate-400">
+                <span>React</span><span>D3.js</span><span>PostgreSQL</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- PAGE: SERVICES -->
+      <div id="page-services" class="hidden max-w-7xl mx-auto px-4 md:px-8 pt-28 pb-16">
+        <div class="max-w-3xl mb-12">
+          <span class="font-mono text-xs text-sky-400 font-bold tracking-widest uppercase mb-2 block">Our capabilities</span>
+          <h1 class="font-display font-extrabold text-4xl md:text-6xl text-white leading-tight">Neo-Digital Services</h1>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+          <div class="lg:col-span-4 flex flex-col gap-3">
+            <button onclick="toggleServiceTab('ui')" id="s-tab-ui" class="w-full text-left p-5 rounded-2xl border bg-white/5 border-sky-400/40 text-white flex justify-between items-center transition-all">
+              <span class="font-display font-bold">UI/UX Systems Design</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+            <button onclick="toggleServiceTab('web')" id="s-tab-web" class="w-full text-left p-5 rounded-2xl border border-white/5 text-slate-400 flex justify-between items-center transition-all">
+              <span class="font-display font-bold">Web Engineering</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+            <button onclick="toggleServiceTab('mobile')" id="s-tab-mobile" class="w-full text-left p-5 rounded-2xl border border-white/5 text-slate-400 flex justify-between items-center transition-all">
+              <span class="font-display font-bold">Mobile Architectures</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+          </div>
+
+          <div class="lg:col-span-8 glass p-6 md:p-8 rounded-3xl border-white/10 min-h-[300px] flex flex-col justify-between" id="service-text-box">
+            <div>
+              <span class="px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-xs font-mono text-sky-400">Figma, Adobe CC, Framer</span>
+              <h2 class="font-display font-extrabold text-2xl md:text-3xl text-white mt-4 mb-2">UI/UX Systems Design</h2>
+              <p class="text-slate-400 text-sm leading-relaxed mb-6">Interactive design guidelines focused on depth, typography, and contrast. We avoid default standard templates to position brands correctly.</p>
+              <ul class="space-y-2 text-xs text-slate-300">
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Custom asset libraries & vector guides</li>
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg> Highly interactive viewport layouts</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE: ABOUT -->
+      <div id="page-about" class="hidden max-w-7xl mx-auto px-4 md:px-8 pt-28 pb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-16">
+          <div class="lg:col-span-7">
+            <span class="font-mono text-xs text-sky-400 font-bold tracking-widest uppercase mb-2 block">Our team</span>
+            <h1 class="font-display font-extrabold text-4xl md:text-6xl text-white leading-tight">Digital Creators Only</h1>
+            <p class="text-slate-400 text-sm mt-4 leading-relaxed max-w-xl">We threw away standard enterprise matrices. No buffers. You work directly with principal tech engineers to bring designs to full compilation.</p>
+          </div>
+          <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+            <div class="glass p-5 rounded-2xl border-white/5">
+              <span class="text-[10px] font-mono text-slate-400 uppercase">Projects</span>
+              <p class="font-display font-black text-4xl text-white mt-2">150+</p>
+            </div>
+            <div class="glass p-5 rounded-2xl border-white/5">
+              <span class="text-[10px] font-mono text-slate-400 uppercase">Partners</span>
+              <p class="font-display font-black text-4xl text-white mt-2">45+</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team profiles -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="glass p-5 rounded-2xl border-white/5">
+            <div class="h-40 bg-slate-900 rounded-xl mb-4 flex items-center justify-center">
+              <div class="w-12 h-12 rounded-full bg-sky-400/10 border border-sky-400/30 flex items-center justify-center text-sky-400 font-display font-bold text-lg">KP</div>
+            </div>
+            <h3 class="font-display font-bold text-lg text-white">Karthik Prabhu</h3>
+            <p class="font-mono text-[10px] text-purple-400 uppercase tracking-widest mt-1">Founder & Systems Architect</p>
+          </div>
+          <div class="glass p-5 rounded-2xl border-white/5">
+            <div class="h-40 bg-slate-900 rounded-xl mb-4 flex items-center justify-center">
+              <div class="w-12 h-12 rounded-full bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 font-display font-bold text-lg">AR</div>
+            </div>
+            <h3 class="font-display font-bold text-lg text-white">Ananya Rao</h3>
+            <p class="font-mono text-[10px] text-purple-400 uppercase tracking-widest mt-1">Lead UI Designer</p>
+          </div>
+          <div class="glass p-5 rounded-2xl border-white/5">
+            <div class="h-40 bg-slate-900 rounded-xl mb-4 flex items-center justify-center">
+              <div class="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-display font-bold text-lg">VS</div>
+            </div>
+            <h3 class="font-display font-bold text-lg text-white">Vikram Seth</h3>
+            <p class="font-mono text-[10px] text-purple-400 uppercase tracking-widest mt-1">Senior DevOps Lead</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE: PLANNER -->
+      <div id="page-planner" class="hidden max-w-7xl mx-auto px-4 md:px-8 pt-28 pb-16">
+        <div class="max-w-2xl mb-12">
+          <span class="font-mono text-xs text-sky-400 font-bold tracking-widest uppercase mb-2 block">Interactive Configurator</span>
+          <h1 class="font-display font-extrabold text-4xl md:text-5xl text-white">Project Planner</h1>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" id="planner-form-container">
+          <div class="lg:col-span-8 glass p-6 md:p-8 rounded-3xl border-white/10 relative overflow-hidden">
+            <div class="space-y-6">
+              <!-- Wizard Title -->
+              <h2 class="font-display font-extrabold text-2xl text-white">Configure Your Digital Scope</h2>
+              
+              <div class="space-y-4">
+                <label class="block font-mono text-xs text-slate-400 uppercase">1. Target Architecture</label>
+                <div class="grid grid-cols-2 gap-3" id="planner-goals-grid">
+                  <button onclick="setPlannerGoal('SaaS')" id="goal-SaaS" class="p-4 rounded-xl border border-sky-400/40 text-white bg-white/5 text-left text-xs font-bold transition-all">Enterprise SaaS</button>
+                  <button onclick="setPlannerGoal('Mobile')" id="goal-Mobile" class="p-4 rounded-xl border border-white/5 text-slate-400 text-left text-xs font-bold transition-all">Native Mobile App</button>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <div class="flex justify-between text-xs font-mono">
+                  <span class="text-slate-400">2. Funding Threshold</span>
+                  <span class="text-sky-400 font-bold" id="budget-preview">$45,000</span>
+                </div>
+                <input type="range" min="10000" max="150000" step="5000" value="45000" oninput="updatePlannerBudget(this.value)" class="w-full accent-sky-400 cursor-pointer">
+              </div>
+
+              <div class="space-y-4">
+                <label class="block font-mono text-xs text-slate-400 uppercase">3. Developer Sync Coordinates</label>
+                <input type="text" id="planner-name" placeholder="Your Name" class="w-full px-4 py-3 bg-slate-900 border border-white/5 rounded-xl text-sm text-white focus:outline-none focus:border-sky-400 transition-all">
+                <input type="email" id="planner-email" placeholder="Work Email" class="w-full px-4 py-3 bg-slate-900 border border-white/5 rounded-xl text-sm text-white focus:outline-none focus:border-sky-400 transition-all">
+              </div>
+
+              <button onclick="submitPlanner()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-400 to-purple-500 font-bold text-sm text-white shadow-lg flex items-center justify-center gap-2">
+                Generate Blueprint <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Sidebar Preview -->
+          <div class="lg:col-span-4 glass p-6 rounded-3xl border-white/5 space-y-4">
+            <h3 class="font-display font-bold text-sm text-white border-b border-white/5 pb-2 uppercase tracking-wide">Live Configuration</h3>
+            <div class="space-y-3 font-sans text-xs">
+              <div>
+                <span class="text-slate-400 block font-mono text-[9px] uppercase">Scope Target</span>
+                <span class="text-white font-bold" id="side-goal">SaaS</span>
+              </div>
+              <div>
+                <span class="text-slate-400 block font-mono text-[9px] uppercase">Allocation</span>
+                <span class="text-sky-400 font-mono font-bold" id="side-budget">$45,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Success Receipt State (Hidden by default) -->
+        <div id="planner-success-box" class="hidden max-w-xl mx-auto glass p-8 rounded-3xl border-emerald-500/20 text-center space-y-6">
+          <div class="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <div>
+            <h2 class="font-display font-black text-2xl text-white">Blueprint Registered!</h2>
+            <p class="text-slate-400 text-sm mt-2">Thanks <span id="receipt-name" class="text-white font-semibold"></span>. Our architect team is mapping out coordinates and will ping you within 2 hours.</p>
+          </div>
+          <div class="p-4 bg-black/60 rounded-xl text-left font-mono text-[10px] text-sky-400 space-y-1">
+            <p class="text-white font-bold border-b border-white/5 pb-1 mb-2">=== CONFIG RECEIPT ===</p>
+            <p>Target: <span id="receipt-target"></span></p>
+            <p>Est: <span id="receipt-est"></span></p>
+            <p>Status: ARCHITECT ASSIGNMENT PENDING</p>
+          </div>
+          <button onclick="resetPlanner()" class="px-5 py-2 rounded-xl border border-white/10 hover:bg-white/5 text-xs text-white">Reset Form</button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/5 bg-[#030507] py-8 px-4 md:px-8 mt-12">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center font-display font-bold text-xs text-white">
+            RΩ
+          </div>
+          <span class="font-display font-extrabold text-sm tracking-tight text-white uppercase">
+            Riolabz Redesign V2
+          </span>
+        </div>
+        <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest text-center">
+          © 2026 Riolabz. Built with extreme craft.
+        </p>
+      </div>
+    </footer>
+
+    <!-- INTERACTION CONTROLLER SCRIPT -->
+    <script>
+      // Navigation Controller
+      function navigate(pageId) {
+        // Toggle pages
+        const pages = ['home', 'services', 'about', 'planner'];
+        pages.forEach(p => {
+          document.getElementById('page-' + p).classList.add('hidden');
+        });
+        document.getElementById('page-' + pageId).classList.remove('hidden');
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Update Nav Menu styling (Desktop)
+        const navs = ['home', 'services', 'about', 'planner'];
+        navs.forEach(n => {
+          const btn = document.getElementById('nav-' + n);
+          if (btn) {
+            btn.className = "px-4 py-2 rounded-full font-sans text-sm font-medium transition-all text-slate-400 hover:text-white";
+          }
+        });
+        const activeNav = document.getElementById('nav-' + pageId);
+        if (activeNav) {
+          activeNav.className = "px-4 py-2 rounded-full font-sans text-sm font-medium transition-all text-white bg-white/10 border border-white/5";
+        }
+
+        // Update Mobile Dock Menu
+        const mobNavs = ['home', 'services', 'about', 'planner'];
+        mobNavs.forEach(m => {
+          const btn = document.getElementById('mob-' + m);
+          if (btn) {
+            btn.className = "flex flex-col items-center gap-1 text-slate-400 transition-all";
+          }
+        });
+        const activeMob = document.getElementById('mob-' + pageId);
+        if (activeMob) {
+          activeMob.className = "flex flex-col items-center gap-1 text-sky-400 scale-105 transition-all";
+        }
+      }
+
+      // Live Uptime Decimals Simulator
+      setInterval(() => {
+        const uptimeBox = document.getElementById('uptime-val');
+        if (uptimeBox) {
+          const current = 99.9882 + (Math.random() - 0.5) * 0.001;
+          uptimeBox.innerText = current.toFixed(4) + '%';
+        }
+      }, 3000);
+
+      // Typing code box simulator
+      const typedString = "const RiolabzApp = { speed: '100vw', seoReady: true, cloudScale: true };";
+      let cursor = 0;
+      setInterval(() => {
+        const box = document.getElementById('typing-code-box');
+        if (box) {
+          box.innerText = typedString.slice(0, cursor) + '|';
+          cursor++;
+          if (cursor > typedString.length) {
+            setTimeout(() => { cursor = 0; }, 3000);
+          }
+        }
+      }, 60);
+
+      // Theme Token Hue Selector
+      function updateThemeHue(val) {
+        document.getElementById('slider-val').innerText = val + '°';
+        const colorCore = `hsl(${val}, 80%, 45%)`;
+        const colorAccent = `hsl(${val}, 90%, 65%)`;
+        document.getElementById('token-preview').style.backgroundColor = colorCore;
+        document.getElementById('token-accent').style.backgroundColor = colorAccent;
+      }
+
+      // Portfolio Grid Filters
+      function filterPortfolio(category) {
+        // Toggle buttons
+        const cats = ['all', 'Fintech', 'AI', 'SaaS'];
+        cats.forEach(c => {
+          const btn = document.getElementById('filt-' + c);
+          if (btn) {
+            btn.className = "px-4 py-1.5 rounded-full text-xs font-semibold text-slate-400 hover:text-white transition-all";
+          }
+        });
+        document.getElementById('filt-' + category).className = "px-4 py-1.5 rounded-full text-xs font-semibold text-black bg-white transition-all";
+
+        // Filter items
+        const grid = document.getElementById('portfolio-grid');
+        const cards = grid.getElementsByTagName('div');
+        for (let i = 0; i < cards.length; i++) {
+          const card = cards[i];
+          const cat = card.getAttribute('data-category');
+          if (cat) {
+            if (category === 'all' || cat === category) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          }
+        }
+      }
+
+      // Interactive Services Tabs
+      const servicesData = {
+        ui: {
+          title: "UI/UX Systems Design",
+          desc: "Interactive design guidelines focused on depth, typography, and contrast. We avoid default standard templates to position brands correctly.",
+          tech: "Figma, Adobe CC, Framer",
+          bullets: ["Custom asset libraries & vector guides", "Highly interactive viewport layouts"]
+        },
+        web: {
+          title: "Web Engineering Systems",
+          desc: "Clean modular React and high-fidelity server action pipelines built for maximum SEO ranking and fast loading speeds.",
+          tech: "React, Next.js, TypeScript, Tailind",
+          bullets: ["Instant Core Web Vitals delivery", "Robust API integrations and caching"]
+        },
+        mobile: {
+          title: "Mobile Architectures",
+          desc: "Cross-platform compilation frameworks engineered for swift rendering speed, local cache persistence, and native device haptic support.",
+          tech: "Flutter, Swift, Kotlin, GraphQL",
+          bullets: ["Offline-first data sync engines", "Strict security access authorizations"]
+        }
+      };
+
+      function toggleServiceTab(tabId) {
+        // Toggle button styling
+        const tabs = ['ui', 'web', 'mobile'];
+        tabs.forEach(t => {
+          const btn = document.getElementById('s-tab-' + t);
+          if (btn) {
+            btn.className = "w-full text-left p-5 rounded-2xl border border-white/5 text-slate-400 flex justify-between items-center transition-all";
+          }
+        });
+        document.getElementById('s-tab-' + tabId).className = "w-full text-left p-5 rounded-2xl border bg-white/5 border-sky-400/40 text-white flex justify-between items-center transition-all";
+
+        // Update content
+        const data = servicesData[tabId];
+        const container = document.getElementById('service-text-box');
+        container.innerHTML = `
+          <div>
+            <span class="px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-xs font-mono text-sky-400">${data.tech}</span>
+            <h2 class="font-display font-extrabold text-2xl md:text-3xl text-white mt-4 mb-2">${data.title}</h2>
+            <p class="text-slate-400 text-sm leading-relaxed mb-6">${data.desc}</p>
+            <ul class="space-y-2 text-xs text-slate-300">
+              ${data.bullets.map(b => `
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path>
+                  </svg> 
+                  ${b}
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      // Project Planner Controller
+      let currentGoal = "SaaS";
+      let currentBudget = 45000;
+
+      function setPlannerGoal(goal) {
+        currentGoal = goal;
+        document.getElementById('goal-SaaS').className = "p-4 rounded-xl border border-white/5 text-slate-400 text-left text-xs font-bold transition-all";
+        document.getElementById('goal-Mobile').className = "p-4 rounded-xl border border-white/5 text-slate-400 text-left text-xs font-bold transition-all";
+        
+        document.getElementById('goal-' + goal).className = "p-4 rounded-xl border border-sky-400/40 text-white bg-white/5 text-left text-xs font-bold transition-all";
+        
+        document.getElementById('side-goal').innerText = goal;
+      }
+
+      function updatePlannerBudget(val) {
+        currentBudget = val;
+        const formatted = "$" + Number(val).toLocaleString();
+        document.getElementById('budget-preview').innerText = formatted;
+        document.getElementById('side-budget').innerText = formatted;
+      }
+
+      function submitPlanner() {
+        const name = document.getElementById('planner-name').value;
+        const email = document.getElementById('planner-email').value;
+
+        if (!name || !email) {
+          alert("Please fill in Name and Email coordinates.");
+          return;
+        }
+
+        // Hide form and show receipt
+        document.getElementById('planner-form-container').classList.add('hidden');
+        document.getElementById('planner-success-box').classList.remove('hidden');
+
+        // Populate receipt
+        document.getElementById('receipt-name').innerText = name;
+        document.getElementById('receipt-target').innerText = currentGoal;
+        document.getElementById('receipt-est').innerText = "$" + Number(currentBudget).toLocaleString();
+      }
+
+      function resetPlanner() {
+        // Clear fields
+        document.getElementById('planner-name').value = "";
+        document.getElementById('planner-email').value = "";
+        
+        setPlannerGoal('SaaS');
+        updatePlannerBudget(45000);
+
+        // Toggle visibility back
+        document.getElementById('planner-form-container').classList.remove('hidden');
+        document.getElementById('planner-success-box').classList.add('hidden');
+      }
+    </script>
+  </body>
+</html>
